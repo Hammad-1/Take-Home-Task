@@ -18,4 +18,4 @@ class Products(Base):
 
     category = relationship("Categories", back_populates="products")
     sales = relationship("Sale", back_populates="product")  # Define the relationship with Sale model
-
+    inventory = relationship("Inventory", back_populates="products")

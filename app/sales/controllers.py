@@ -17,12 +17,12 @@ async def get_sales(db: Session = Depends(get_db)):
 
 @router.get("/filter_sales")
 async def filter_sales(
-    sale_id: int =  Query(None, description="Filter sales by product id"),
+    sale_id: int =  Query(None, description="Filter sales by sales id"),
     product_id: int = Query(None, description="Filter sales by product id"),
     category_id: int = Query(None, description="Filter sales by category id"),
-    target_date: datetime = Query(None, description="Filter salesTarget date"), 
-    start_date: datetime = Query(None, description="Start date to Filter sales"),
-    end_date: datetime = Query(None, description="End date to Filter sales"),
+    target_date: date = Query(None, description="Filter salesTarget date"), 
+    start_date: date = Query(None, description="Start date to Filter sales"),
+    end_date: date = Query(None, description="End date to Filter sales"),
     db: Session = Depends(get_db)
 ):
     '''
@@ -35,7 +35,6 @@ async def filter_sales(
     elif category_id:
         return await services.get_sales_by_category(category_id, db)
     elif target_date:
-        print("inside if target date")
         return await services.get_sales_by_date(target_date, db)
     elif start_date and end_date:
         return await services.get_sales_by_date_range(start_date, end_date, db)

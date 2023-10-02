@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 
 from app.models.sales import Sale
 from app.schemas import sales as schemas
+from datetime import timedelta
 
 class SalesRepo:
 
@@ -19,5 +20,5 @@ class SalesRepo:
         return sales
     
     def filter_sales_by_date(db: Session, target_date):
-        sales = db.query(Sale).filter(Sale.sale_date == target_date).all()
+        sales = db.query(Sale).filter(Sale.sale_date >= target_date, Sale.sale_date < target_date + timedelta(days=1)).all()
         return sales

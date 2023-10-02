@@ -12,4 +12,4 @@ class Inventory(Base):
     quantity = Column(Integer)
     last_updated = Column(DateTime, default=datetime.utcnow)
 
-    product = relationship("Product", back_populates="inventory")
+    products = relationship("Products", back_populates="inventory")
