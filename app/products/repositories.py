@@ -1,12 +1,17 @@
 from sqlalchemy.orm import Session
 
 from app.models import products as models
+from app.models.inventory import Inventory
 from app.schemas import products as schemas
 
 class ProductRepo:
     async def create(db: Session, product: schemas.ProductCreate):
         product = models.Products(name=product.name,price=product.price,description=product.description,category_id=product.category_id)
         db.add(product)
+        db.commit()
+        # Create an associated inventory record
+        inventory = Inventory(quantity=1, product_id=product.id)
+        db.add(inventory)
         db.commit()
         db.refresh(product)
         return product

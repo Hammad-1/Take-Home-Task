@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from app.models.inventory import Inventory
 from app.schemas.inventory import Inventory
 from app.products.repositories import ProductRepo
+from . repositories import InventoryRepo
 
 async def view_inventory_status(low_stock_threshold, db):
     '''
@@ -29,6 +30,12 @@ async def view_inventory_status(low_stock_threshold, db):
 
     raise HTTPException(status_code=404, detail="No Product Found")
 
+async def update_inventory(product_id, quantity, db):
+    return InventoryRepo.update_inventory_by_product(db, product_id, quantity)
 
-
-
+async def get_inventory_logs_by_product_id(product_id, db):
+    inventory_logs = InventoryRepo.get_inventory_logs_by_product_id(db, product_id)
+    if len(inventory_logs) > 0:
+        return inventory_logs
+    else:
+        raise HTTPException(status_code=404, detail="No logs found of inventory update for this product")

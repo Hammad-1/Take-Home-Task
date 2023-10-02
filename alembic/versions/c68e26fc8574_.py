@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 8b7965fe6033
+Revision ID: c68e26fc8574
 Revises: 
-Create Date: 2023-10-02 20:40:07.166241
+Create Date: 2023-10-02 22:51:22.500952
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '8b7965fe6033'
+revision: str = 'c68e26fc8574'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -27,6 +27,14 @@ def upgrade() -> None:
     sa.UniqueConstraint('name')
     )
     op.create_index(op.f('ix_categories_id'), 'categories', ['id'], unique=False)
+    op.create_table('inventory_logs',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('product_id', sa.Integer(), nullable=True),
+    sa.Column('update_quantity', sa.Integer(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_inventory_logs_id'), 'inventory_logs', ['id'], unique=False)
     op.create_table('products',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=True),
@@ -71,6 +79,8 @@ def downgrade() -> None:
     op.drop_index(op.f('ix_products_name'), table_name='products')
     op.drop_index(op.f('ix_products_id'), table_name='products')
     op.drop_table('products')
+    op.drop_index(op.f('ix_inventory_logs_id'), table_name='inventory_logs')
+    op.drop_table('inventory_logs')
     op.drop_index(op.f('ix_categories_id'), table_name='categories')
     op.drop_table('categories')
     # ### end Alembic commands ###
