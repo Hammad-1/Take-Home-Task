@@ -27,7 +27,7 @@ async def update_inventory(
         return await services.update_inventory(product_id, quantity, db)
     raise HTTPException(status_code=400, detail="Please provide product_id and quantity")
 
-@router.patch("/track-inventory-update")
+@router.get("/track-inventory-update")
 async def get_inventory_logs(product_id : int = 0, db: Session = Depends(get_db)):
     '''
     Endpoint to track inventory logs
