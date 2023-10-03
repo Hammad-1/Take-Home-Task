@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import MetaData
 
 
-SQLALCHEMY_DATABASE_URL= "mysql+mysqlconnector://mysql:mysql@localhost/forsit"
+SQLALCHEMY_DATABASE_URL= "mysql+mysqlconnector://root:mysql@mysql:3306/forsit"
 
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)

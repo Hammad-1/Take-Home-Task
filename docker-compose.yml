@@ -30,5 +30,5 @@ services:
     depends_on:
       - mysql
     environment:
-      - DATABASE_URL=mysql+mysqlconnector://mysql:mysql@localhost/forsit
+      - DATABASE_URL=mysql+mysqlconnector://root:mysql@mysql:3306/forsit
     command: pipenv run alembic upgrade head
