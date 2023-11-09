@@ -9,6 +9,8 @@ You can run the service with docker compose. First, make sure you have Docker an
 4. To access endpoints open localhost:8000/docs. This url  contains swagger documentation for the endpoints
 5. To stop the container, you can press Ctrl-C in the terminal window where you ran docker compose up.
 6. To load demo data into the database, first make the "load_data.sh" script executable by running the "chmod +x load_data.sh" command. Next, access the MySQL Docker container using the "docker exec -it <CONTAINER_ID> bash" command, and execute the "./load_data.sh" script inside the container.
+7. If point 6 won't work then use this command to load data in db:
+"sudo docker exec -i 'CONTAINER_ID' mysql -u 'USER_NAME' -pmysql 'DB_NAME' < ./demo_data.sql". You can see 'USER_NAME' and 'DB_NAME' from docker.ini
 
 Note: If you encounter a "Permission denied" error when running a Docker command, you can resolve it by running the Docker command as the root user with sudo.
 
